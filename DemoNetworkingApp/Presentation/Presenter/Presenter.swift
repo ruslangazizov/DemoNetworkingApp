@@ -45,7 +45,7 @@ final class Presenter: IPresenter {
     
     // MARK: - Private
     
-    func obtainData() {
+    private func obtainData() {
         guard !isLoading else { return }
         isLoading = true
         networkService.getCharacters(page: page) { [weak self] (models: [Character]) in
