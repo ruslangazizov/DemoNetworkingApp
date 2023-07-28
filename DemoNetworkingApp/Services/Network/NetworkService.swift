@@ -14,11 +14,8 @@ protocol INetworkService: AnyObject {
 
 final class NetworkService: INetworkService {
     
-    private let apiBase = "https://rickandmortyapi.com/api/"
-    
     func getCharacters(page: Int, completion: @escaping ([Character]) -> Void) {
-        let params: [String: Any] = ["page": page] // здесь можно задавать любые query string параметры
-        let request = AF.request(apiBase + "character", parameters: params)
+        let request = AF.request("https://rickandmortyapi.com/api/character", parameters: ["page": page])
         
         request.responseDecodable(of: APIResponse<[Character]>.self) { dataResponse in
             let response: APIResponse<[Character]>? = dataResponse.value

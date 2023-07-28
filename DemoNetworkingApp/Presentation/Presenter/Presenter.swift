@@ -10,7 +10,7 @@ import Foundation
 protocol IPresenter: AnyObject {
     var dataSource: [CharacterCell.Model] { get }
     func viewDidLoad()
-    func willDisplayForRowAt(indexPath: IndexPath)
+    func willDisplayCell(at indexPath: IndexPath)
 }
 
 final class Presenter: IPresenter {
@@ -36,8 +36,8 @@ final class Presenter: IPresenter {
         obtainData()
     }
     
-    func willDisplayForRowAt(indexPath: IndexPath) {
-        if indexPath.row == dataSource.count - 1 {
+    func willDisplayCell(at indexPath: IndexPath) {
+        if indexPath.row == dataSource.count - 2 {
             page += 1
             obtainData()
         }
@@ -48,16 +48,20 @@ final class Presenter: IPresenter {
     private func obtainData() {
         guard !isLoading else { return }
         isLoading = true
-        networkService.getCharacters(page: page) { [weak self] (models: [Character]) in
-            let viewModels = models.map { (character) -> CharacterCell.Model in
-                return CharacterCell.Model(imageUrl: character.image,
-                                           name: character.name,
-                                           gender: character.gender.rawValue,
-                                           location: character.location.name)
-            }
-            self?.dataSource += viewModels
-            self?.view?.reloadData()
-            self?.isLoading = false
+        networkService.getCharacters(page: page) { [weak self] characters in
+            guard let self else { return }
+            self.dataSource += self.makeViewModels(from: characters)
+            self.view?.reloadData()
+            self.isLoading = false
+        }
+    }
+
+    private func makeViewModels(from characters: [Character]) -> [CharacterCell.Model] {
+        return characters.map { character in
+            CharacterCell.Model(imageUrl: character.image,
+                                name: character.name,
+                                gender: character.gender.rawValue,
+                                location: character.location.name)
         }
     }
 }

@@ -15,7 +15,7 @@ final class CharacterCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 40
-        imageView.image = UIImage(named: "avatar-placeholder")
+        imageView.image = UIImage.avatarPlaceholder
         return imageView
     }()
     private lazy var nameLabel = UILabel()
@@ -33,32 +33,42 @@ final class CharacterCell: UITableViewCell {
         view.spacing = 16
         return view
     }()
+
+    // Dependencies
+    private let imageDownloadManager = ImageDownloadManager(cacheManager: CacheManager.shared)
     
     // MARK: - Initialization
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        addSubview(contentStackView)
-        contentStackView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()
-        }
-        
-        logoImageView.snp.makeConstraints { make in
-            make.width.height.equalTo(80)
-        }
+        setupUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Override
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        logoImageView.image = UIImage(named: "avatar-placeholder")
+        logoImageView.image = UIImage.avatarPlaceholder
         nameLabel.text = nil
         genderLabel.text = nil
         locationLabel.text = nil
+    }
+
+    // MARK: - Private
+
+    private func setupUI() {
+        contentView.addSubview(contentStackView)
+        contentStackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        logoImageView.snp.makeConstraints { make in
+            make.width.height.equalTo(80)
+        }
     }
 }
 
@@ -74,7 +84,9 @@ extension CharacterCell {
     }
     
     func configure(with model: Model) {
-        logoImageView.downloadImage(from: model.imageUrl)
+        imageDownloadManager.downloadImage(withUrl: model.imageUrl) { [weak self] image in
+            self?.logoImageView.image = image
+        }
         nameLabel.text = model.name
         genderLabel.text = model.gender
         locationLabel.text = model.location

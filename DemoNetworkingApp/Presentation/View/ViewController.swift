@@ -18,7 +18,11 @@ final class ViewController: UIViewController {
         let view = UITableView()
         view.dataSource = self
         view.delegate = self
-        view.register(CharacterCell.self, forCellReuseIdentifier: String(describing: CharacterCell.self))
+        view.register(
+            CharacterCell.self,
+            forCellReuseIdentifier: String(describing: CharacterCell.self)
+        )
+        view.rowHeight = 80
         return view
     }()
     
@@ -47,12 +51,15 @@ final class ViewController: UIViewController {
     // MARK: - Private
     
     private func setupUI() {
+        view.backgroundColor = .white
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()
+            make.edges.equalTo(view.safeAreaLayoutGuide)
         }
     }
 }
+
+// MARK: - IView
 
 extension ViewController: IView {
     
@@ -61,13 +68,21 @@ extension ViewController: IView {
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension ViewController: UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return presenter.dataSource.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: String(describing: CharacterCell.self),
             for: indexPath
@@ -80,11 +95,19 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension ViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView,
-                   willDisplay cell: UITableViewCell,
-                   forRowAt indexPath: IndexPath) {
-        presenter.willDisplayForRowAt(indexPath: indexPath)
+    func tableView(
+        _ tableView: UITableView,
+        willDisplay cell: UITableViewCell,
+        forRowAt indexPath: IndexPath
+    ) {
+        presenter.willDisplayCell(at: indexPath)
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

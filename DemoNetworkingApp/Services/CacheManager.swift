@@ -6,33 +6,31 @@
 //
 
 import UIKit
-import Alamofire
 
-final class CacheManager {
-    
-    static let shared = CacheManager()
+protocol ICacheManager: AnyObject {
+    func getImage(forKey key: String) -> UIImage?
+    func setImage(_ image: UIImage, forKey key: String)
+}
+
+final class CacheManager: ICacheManager {
+
+    // Properties
     private let cache = NSCache<NSString, UIImage>()
-    
+
+    // MARK: - Singleton
+
+    static let shared = CacheManager()
     private init() {}
-    
-    func image(forUrl urlString: String, completion: @escaping (UIImage?) -> Void) {
-        let cacheKey = NSString(string: urlString)
-        
-        if let image = cache.object(forKey: cacheKey) {
-            completion(image)
-            return
-        }
-        
-        let request = AF.download(urlString)
-        request.responseData { [weak self] (response: AFDownloadResponse<Data>) in
-            guard let data: Data = response.value,
-                  let image = UIImage(data: data) else {
-                completion(nil)
-                return
-            }
-            
-            self?.cache.setObject(image, forKey: cacheKey)
-            completion(image)
-        }
+
+    // MARK: - ICacheManager
+
+    func getImage(forKey key: String) -> UIImage? {
+        let cacheKey = NSString(string: key)
+        return cache.object(forKey: cacheKey)
+    }
+
+    func setImage(_ image: UIImage, forKey key: String) {
+        let cacheKey = NSString(string: key)
+        cache.setObject(image, forKey: cacheKey)
     }
 }

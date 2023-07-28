@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1BBFDF9AB39DDDAC1E1FAA8A /* Pods_DemoNetworkingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6319D5CEFF482B82245F8F76 /* Pods_DemoNetworkingApp.framework */; };
+		44A04F3A2A7434D8001CF1BC /* ImageDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A04F392A7434D8001CF1BC /* ImageDownloadManager.swift */; };
+		44A04F3D2A743806001CF1BC /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A04F3C2A743806001CF1BC /* UIImage+Extensions.swift */; };
 		974485D42A03AB20009CFF44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974485D32A03AB20009CFF44 /* AppDelegate.swift */; };
 		974485D62A03AB20009CFF44 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974485D52A03AB20009CFF44 /* SceneDelegate.swift */; };
 		974485D82A03AB20009CFF44 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974485D72A03AB20009CFF44 /* ViewController.swift */; };
@@ -17,13 +19,14 @@
 		974485ED2A03B2AB009CFF44 /* Presenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974485EC2A03B2AB009CFF44 /* Presenter.swift */; };
 		974485EF2A03B2D9009CFF44 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974485EE2A03B2D9009CFF44 /* NetworkService.swift */; };
 		974485F22A03E49F009CFF44 /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974485F12A03E49F009CFF44 /* CharacterCell.swift */; };
-		974485F52A03F365009CFF44 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974485F42A03F365009CFF44 /* UIImageView+Extensions.swift */; };
 		974485F82A03F45D009CFF44 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974485F72A03F45D009CFF44 /* CacheManager.swift */; };
 		974485FB2A03F8CE009CFF44 /* APICommonModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974485FA2A03F8CE009CFF44 /* APICommonModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0FAA8576EBA299E911E885A7 /* Pods-DemoNetworkingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoNetworkingApp.release.xcconfig"; path = "Target Support Files/Pods-DemoNetworkingApp/Pods-DemoNetworkingApp.release.xcconfig"; sourceTree = "<group>"; };
+		44A04F392A7434D8001CF1BC /* ImageDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloadManager.swift; sourceTree = "<group>"; };
+		44A04F3C2A743806001CF1BC /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		6319D5CEFF482B82245F8F76 /* Pods_DemoNetworkingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DemoNetworkingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		974485D02A03AB20009CFF44 /* DemoNetworkingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoNetworkingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		974485D32A03AB20009CFF44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -36,7 +39,6 @@
 		974485EC2A03B2AB009CFF44 /* Presenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presenter.swift; sourceTree = "<group>"; };
 		974485EE2A03B2D9009CFF44 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		974485F12A03E49F009CFF44 /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
-		974485F42A03F365009CFF44 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		974485F72A03F45D009CFF44 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		974485FA2A03F8CE009CFF44 /* APICommonModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICommonModels.swift; sourceTree = "<group>"; };
 		D5295AA6A3A73C442ED08219 /* Pods-DemoNetworkingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoNetworkingApp.debug.xcconfig"; path = "Target Support Files/Pods-DemoNetworkingApp/Pods-DemoNetworkingApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -54,6 +56,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44A04F3B2A7437E9001CF1BC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				44A04F3C2A743806001CF1BC /* UIImage+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		974485C72A03AB20009CFF44 = {
 			isa = PBXGroup;
 			children = (
@@ -75,9 +85,9 @@
 		974485D22A03AB20009CFF44 /* DemoNetworkingApp */ = {
 			isa = PBXGroup;
 			children = (
+				44A04F3B2A7437E9001CF1BC /* Extensions */,
 				974485F62A03F44A009CFF44 /* Services */,
 				974485FC2A03FA15009CFF44 /* Presentation */,
-				974485F32A03F350009CFF44 /* Components */,
 				974485E72A03B16B009CFF44 /* Models */,
 				974485D32A03AB20009CFF44 /* AppDelegate.swift */,
 				974485D52A03AB20009CFF44 /* SceneDelegate.swift */,
@@ -113,14 +123,6 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		974485F32A03F350009CFF44 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				974485F42A03F365009CFF44 /* UIImageView+Extensions.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
 		974485F62A03F44A009CFF44 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +137,7 @@
 			children = (
 				974485FA2A03F8CE009CFF44 /* APICommonModels.swift */,
 				974485EE2A03B2D9009CFF44 /* NetworkService.swift */,
+				44A04F392A7434D8001CF1BC /* ImageDownloadManager.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -280,9 +283,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				974485FB2A03F8CE009CFF44 /* APICommonModels.swift in Sources */,
-				974485F52A03F365009CFF44 /* UIImageView+Extensions.swift in Sources */,
 				974485F82A03F45D009CFF44 /* CacheManager.swift in Sources */,
 				974485D82A03AB20009CFF44 /* ViewController.swift in Sources */,
+				44A04F3A2A7434D8001CF1BC /* ImageDownloadManager.swift in Sources */,
+				44A04F3D2A743806001CF1BC /* UIImage+Extensions.swift in Sources */,
 				974485D42A03AB20009CFF44 /* AppDelegate.swift in Sources */,
 				974485D62A03AB20009CFF44 /* SceneDelegate.swift in Sources */,
 				974485F22A03E49F009CFF44 /* CharacterCell.swift in Sources */,
