@@ -5,8 +5,7 @@
 //  Created by Руслан on 28.07.2023.
 //
 
-import Foundation
-import Alamofire
+import UIKit
 
 final class ImageDownloadManager {
 
@@ -14,7 +13,7 @@ final class ImageDownloadManager {
     private let cacheManager: ICacheManager
 
     // Properties
-    private var request: DownloadRequest?
+    private var task: URLSessionDataTask?
 
     // MARK: - Initialization
 
@@ -30,16 +29,20 @@ final class ImageDownloadManager {
             return
         }
 
-        request?.cancel()
-        request = AF.download(urlString).responseData { [weak self] response in
-            guard let data: Data = response.value,
-                  let image = UIImage(data: data) else {
-                completion(nil)
-                return
-            }
+        guard let url = URL(string: urlString) else { completion(nil); return }
 
-            self?.cacheManager.setImage(image, forKey: urlString)
-            completion(image)
+        task?.cancel()
+        task = URLSession.shared.dataTask(with: URLRequest(url: url)) { [weak self] data, _, error in
+            DispatchQueue.main.async {
+                guard error == nil, let data, let image = UIImage(data: data) else {
+                    completion(nil)
+                    return
+                }
+
+                self?.cacheManager.setImage(image, forKey: urlString)
+                completion(image)
+            }
         }
+        task?.resume()
     }
 }
